@@ -1,0 +1,39 @@
+﻿@model IEnumerable<budgeter.Models.CodeFirst.BankAccount>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="text-center">
+    <h2>My Accounts</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+</div>
+
+<div class="col-lg-4">
+    <div class="panel panel-primary">
+        @foreach (var item in Model)
+        {
+            <div class="panel-heading">
+                @Html.DisplayFor(model => item.Title)
+            </div>
+            <div class="panel-body">
+
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Balance)
+                    </dt>
+                    <dd>
+                        $ @Html.DisplayFor(model => item.Balance)
+                    </dd>
+                </dl>
+                <div class="text-center">
+                    <a href="@Url.Action("Deposit", "Transactions", new { householdId = item.HouseholdId, accountId = item.Id })" class="btn btn-default btn-small"><i class="fa fa-money"></i> Deposit</a>
+                </div>
+            </div>
+
+        }
+    </div>
+</div>

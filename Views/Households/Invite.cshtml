@@ -1,0 +1,31 @@
+﻿@model budgeter.Models.CodeFirst.Invite
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Invite to your household</h2>
+
+<section>
+    @using (Html.BeginForm("Invite", "Household", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="id" value="@ViewBag.HouseholdId" />
+            
+                                <hr />
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+                        @Html.EditorFor(model => model.ToEmail, new { htmlAttributes = new { @class = "form-control login-textbox", @placeholder = "Email" } })
+                        @Html.ValidationMessageFor(model => model.ToEmail, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-default">
+                                <i class="fa fa-envelope-o"></i> Send
+                            </button>
+                            <span class="divider"> | </span>
+                            @Html.ActionLink("Back", "Details", "Households", new { id = ViewBag.HouseholdId }, htmlAttributes: "")
+                        </div>
+                    </div>
+    }
+</section>

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<budgeter.Models.CodeFirst.Household>
+@using Microsoft.AspNet.Identity;
+
+
+@{
+    ViewBag.Title = "My Households";
+    var userId = User.Identity.GetUserId();
+    bool flag = false;
+}
+
+<div class="row" style="padding-top:40px;">
+    <div class="col-sm-4 col-sm-offset-4 text-center">
+        <div class="well well-lg panel-primary topspace">
+            <h2>My Households</h2>
+
+            <p>
+                <a href="@Url.Action("Create", "Households")" class="btn btn-default btn-block">Create New Household</a>
+            </p>
+            @foreach (var item in Model)
+            {
+                if (item.Deleted != true)
+                {
+                    foreach (var user in item.Users)
+                    {
+                        if (user.Id == userId)
+                        {
+                            flag = true;
+                        }
+                    }
+                    if (flag)
+                    {
+                        <hr />
+                        <a href="@Url.Action("Details", "Households", new { id = item.Id })" class="h4">@Html.DisplayFor(modelItem => item.Title)</a>
+                        flag = false;
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>

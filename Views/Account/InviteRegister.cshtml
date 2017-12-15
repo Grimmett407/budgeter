@@ -1,0 +1,45 @@
+﻿@model budgeter.Models.InviteRegisterViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("InviteRegister", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.HiddenFor(model => model.HouseholdId)
+    @Html.HiddenFor(model => model.Secret)
+    @Html.AntiForgeryToken()
+
+    <p class="text-center">
+        @Html.ActionLink("Already registered? Log in", "InviteLogin", "Account", new { householdId = ViewBag.HouseholdId, secret = ViewBag.Secret }, htmlAttributes: "")
+    </p>
+
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group login-form">
+                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control login-textbox", @placeholder = "First Name" })
+                    </div>
+                    <div class="form-group login-form">
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control login-textbox", @placeholder = "Last Name" })
+                    </div>
+                    @*<div class="form-group login-form">
+                        @Html.TextBoxFor(m => m.DisplayName, new { @class = "form-control login-textbox", @placeholder = "User Name" })
+                    </div>*@
+                    <div class="form-group login-form">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control login-textbox", @placeholder = "Email Address" })
+                    </div>
+                    <div class="form-group login-form">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control login-textbox", @placeholder = "Password" })
+                    </div>
+                    <div class="form-group login-form">
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control login-textbox", @placeholder = "Confirm Password" })
+                    </div>
+                    <div class="form-group">
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-default">
+                                <i class="fa fa-user-o"></i> Register
+                            </button>
+                        </div>
+                    </div>
+}

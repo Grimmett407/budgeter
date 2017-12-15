@@ -1,0 +1,25 @@
+﻿@model budgeter.Models.AssignUsersViewModel
+
+@{
+    ViewBag.Title = "Assign";
+}
+
+<div class="row">
+    <div class="col-sm-4 col-sm-offset-4 text-center">
+        <div class="well well-lg well-topspace">
+            <h2>@Model.Household.Title Users</h2>
+            @foreach (var user in Model.SelectedUsers)
+            {
+                <hr />
+                <div class="col-sm-12">
+                    <p>
+                        @user.DisplayName <span class="divider"> | </span>
+                        @Html.ActionLink("Remove User", "UnAssign", "Households", new { householdId = Model.Household.Id, userId = user.Id }, "")
+                    </p>
+                </div>
+            }
+            <br />
+            <a href="@Url.Action("Details", "Households", new { Id = Model.Household.Id })" class="btn btn-default"><i class="fa fa-angle-left"></i> Back</a>
+        </div>
+    </div>
+</div>

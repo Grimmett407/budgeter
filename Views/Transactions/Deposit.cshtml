@@ -1,0 +1,36 @@
+﻿@model budgeter.Models.CodeFirst.Transaction
+
+@{
+    ViewBag.Title = "Deposit";
+}
+
+<div class="row">
+    <div class="col-sm-4 col-sm-offset-4">
+        <div class="well well-lg well-topspace">
+            <h3 class="text-center">Add a Deposit</h3>
+            <hr />
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="accountId" value="@ViewBag.BankAccountId" />
+                <input type="hidden" name="householdId" value="@ViewBag.HouseholdId" />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group login-form">
+                    @Html.EditorFor(model => model.Description , new { htmlAttributes = new { @class = "form-control login-textbox", @placeholder = "Description" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group login-form">
+                    @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control login-textbox", @placeholder = "Amount" } })
+                    @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-default">
+                        <i class="fa fa-check-square-o"></i> Save
+                    </button>
+                    <span class="divider"> | </span>
+                    @Html.ActionLink("Cancel", "Details", "Households", new { id = ViewBag.HouseholdId }, new { })
+                </div>
+            }
+        </div>
+    </div>
+</div>
